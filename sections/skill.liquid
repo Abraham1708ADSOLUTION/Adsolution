@@ -1,0 +1,58 @@
+<section>
+  <div class="container-skills">
+    <div class="rows">
+      <div class="row1">
+        <h1>{{ section.settings['text-left'] }}</h1>
+      </div>
+      <div class="row2">
+        {% for block in section.blocks %}
+            {% if block.settings.img-skill != blank %}
+            <div class="skill">
+                <a href=" {{ block.settings.img-link }}">
+                <img src=" {{ block.settings.img-skill | img_url: '300x' }}">
+                </a>
+              </div>
+            {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Skills",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text-left",
+      "label": "Texto"
+    }
+  ],
+
+  "blocks": [
+    {
+      "name": "skills",
+      "type": "skills",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img-skill",
+          "label": "Selecciona una imagen "
+        },
+        {
+            "type": "url",
+            "id": "img-link",
+            "label": "Link"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Skills"
+    }
+  ]
+}
+{% endschema %}

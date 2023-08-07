@@ -1,0 +1,66 @@
+<div class="w-full py-6 px-3">
+  <div class="border bg-white shadow-lg rounded-lg overflow-hidden relative">
+    <a href="{{ product.url }}">
+      {% if product.featured_image %}
+        <div class="h-80 overflow-hidden  relative">
+          {% comment %}
+            imagen de la coleccion
+          {% endcomment %}
+          <img
+            class="w-full h-full object-cover transition duration-100 ease-in-out hover:scale-105 transform"
+            src="{{ product.featured_image | img_url: '300x' }}"
+            alt="{{ product.featured_image.alt }}">
+          {% comment %}
+            condicion si el producto esta en descuento
+          {% endcomment %}
+
+          {% if product.compare_at_price > product.price %}
+            <span class="absolute z-10 top-0 rounded-r-lg bg-red-600 text-white p-2 mt-5">En descuento</span>
+          {% endif %}
+
+          {% comment %}
+            renderizado de los tags
+          {% endcomment %}
+
+          {% for tag in product.tags %}
+            {% if tag == 'shopify' %}
+              <div class="absolute top-0 right-0 border-t-0 border border-black  mr-4 px-4 py-6 overflow-hidden rounded-b-lg ">
+                <span>{% render 'shopify' %}</span>
+              </div>
+            {% elsif tag == 'facebook' %}
+              <div class="absolute top-0 right-0 border-t-0 border border-black  mr-4 px-4 py-6 overflow-hidden rounded-b-lg ">
+                <span>{% render 'cart-icon' %}</span>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-gray-100' }}
+      {% endif %}
+    </a>
+
+    <div class="flex flex-col p-4">
+      <span class="text-sm text-gray-400">{{ product.vendor }}</span>
+
+      <a href="{{ product.url }}" class="text-gray-700 uppercase font-medium">{{ product.title }}</a>
+
+      {% comment %}
+        Precios y condiciones
+      {% endcomment %}
+      {% if product.compare_at_price > product.price %}
+        <div class="flex gap-1 items-center">
+          <p class="text-gray-500 ">{{ product.price | money }}</p>
+          <span class="text-xs text-red-600 line-through">{{ product.compare_at_price | money }}</span>
+        </div>
+      {% else %}
+        <p class="text-gray-500 ">{{ product.price | money }}</p>
+      {% endif %}
+    </div>
+    <a class="text-white" href=" {{ product.url }}">
+      <div class="bg-blue-600 text-center py-2">
+        <span> Ver detalles </span>
+      </div>
+    </a>
+  </div>
+</div>

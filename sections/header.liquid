@@ -1,0 +1,79 @@
+<header class="border-b border-black">
+  <div class="w[100%] h-auto m-10 flex justify-between px-10">
+    <div>
+      {% if section.settings.logo_not_home != blank %}
+        <a href="/">
+          <img class="width-logo-header" src=" {{ section.settings.logo_not_home | img_url: 'medium'}}" alt="logo">
+        </a>
+      {% else %}
+       <a href="/">{{ shop.name }}</a> 
+      {% endif %}
+    </div>
+
+    <nav class=" flex">
+      <ul>
+        <li class="flex flex-row gap-4">
+          {% for link in section.settings.menu.links %}
+              <a class="  flex gap-4 flex-row text-black" href=" {{ link.url }}"> {{ link.title }} </a>
+          {% endfor %}
+        </li>
+      </ul>
+    </nav>
+
+    <div class="flex">
+      <ul class="flex gap-4 items-center justify-center">
+        <li>
+          <a href="">{% render 'search-icon' %}</a>
+        </li>
+        <li>
+          <a href="{{ routes.cart_url }}">{% render 'cart-icon' %}</a>
+        </li>
+        <li>
+          <a href=" {{ routes.account_login_url }}">
+            {% render 'user-icon' %}</li>
+          </a>
+      </ul>
+    </div>
+  </div>
+</header>
+
+
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "shopify-section-header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_not_home",
+      "label": "Image",
+      "info": "Used on the other pages and on scroll when the header is sticky"
+    },
+    {
+      "type": "range", 
+      "id": "width-header-logo",
+      "label": "Tamaño del logo",
+      "step": 10,
+      "max": 240,
+      "min": 80,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu Principal",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

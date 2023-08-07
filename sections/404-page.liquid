@@ -1,0 +1,39 @@
+<div class="max-w-md">
+  <div class="text-6xl  font-bold my-4">
+    {{ section.settings['title-error'] }}
+    <div class="my-4">
+      <p class="text-base md:text-xl leading-normal">{{ section.settings['sub-text-error'] }}</p>
+    </div>
+    <div class="my-12 text-base py-3 px-3 " style="color: {{ settings.colors_primary }}; background-color:{{ settings.colors_contrast }}; border-radius:{{ settings.border-r }}px;">
+      <a href=" {{ shop.secure_url }}"> {{ section.settings.btn-return }} </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "template 404",
+  "tag": "section",
+  "class": "flex items-center justify-center text-center py-7 h-screen",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title-error",
+      "default": "Error 404",
+      "label": "404 Heading title"
+    },
+    {
+      "type": "text",
+      "id": "sub-text-error",
+      "label": "404 subtext",
+      "default": "Pagina no encontrada"
+    } ,
+    {
+        "type": "text",
+        "id": "btn-return",
+        "label": "text",
+        "default": "Regresar al inicio"
+    }
+  ]
+}
+{% endschema %}

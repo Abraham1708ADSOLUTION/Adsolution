@@ -1,0 +1,44 @@
+<section>
+  <div class="m-16">
+    <div class=" grid grid-cols-3 text-center place-content-center items-center gap-y-20 ">
+      {% for block in section.blocks %}
+        <div class="flex flex-col gap-2 items-center justify-center" >
+          <img class=" w-32 h-32 " src=" {{ block.settings.services-logo | img_url: 'small' }}" alt="">
+          {{ block.settings['text-logo'] }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Plataformas",
+  "class": "Section",
+  "settings": [],
+  "blocks": [
+    {
+      "name": "Servicios",
+      "type": "services",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "services-logo",
+          "label": "Selecciona una imagen"
+        },
+        {
+          "type": "richtext",
+          "id": "text-logo",
+          "label": "Texto"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+        "name": "Servicios"
+    }
+  ]
+}
+{% endschema %}

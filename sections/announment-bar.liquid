@@ -1,0 +1,43 @@
+
+{% schema %}
+{
+  "name": "Barra de anuncio",
+  "class": "announcement-bar-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "text-color-bar",
+      "label": "Selecciona un color",
+      "default": "#fff",
+      "info": "Color del texto"
+    },
+    {
+      "type": "color",
+      "id": "announment-bar",
+      "label": "Selecciona una color",
+      "default": "#0082FB",
+      "info": "Color del contenedor"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Anuncio",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text-bar",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "announcement"
+      }
+    ]
+  }
+}
+{% endschema %}

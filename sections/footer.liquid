@@ -1,0 +1,231 @@
+<footer class="footer">
+  <div class="width">
+    <div class="footer-top">
+      {% for block in section.blocks %}
+        {% if block.type == 'navigation' %}
+          <div class="footer-column footer-column--navigacion">
+            <h2>{{ block.settings.linklist.title }}</h2>
+            {% for link in block.settings.linklist.links %}
+              <li>
+                <a href=" {{ link.url }}"> {{ link.title }}</a>
+              </li>
+            {% endfor %}
+          </div>
+        {% elsif block.type == 'text' %}
+          <div class="footer-column footer-column--text">
+            <h2>{{ block.settings.heading }}</h2>
+            {{ block.settings.richtext }}
+          </div>
+        {% elsif block.type == 'newsletter' %}
+          <div class="footer-column footer-column--news">
+            <h2>{{ block.settings.heading }}</h2>
+            {{ block.settings.richtext }}
+            {% form 'customer', id: 'footer-newsletter' %}
+              {% if form.posted_successfully? %}
+                <p>Registro con exito</p>
+              {% endif %}
+
+              {% if form.errors %}
+                <p>{{ form.errors.messages.email }}</p>
+              {% endif %}
+             <input type="hidden" name="contact[tags]" value="newsletter">
+             <input name="contact[email]" type="email" placeholder="Correo Electronico">
+              <button type="submit">Suscribete</button>
+            {% endform %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copyrigth">{{ section.settings.copyrigth }}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: #fff;
+    color: #111;
+    padding: 20px 0;
+    font-size: 14px;
+  }
+
+  ..footer
+
+  .width {
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .footer-top {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+
+  @media (min-width: 760px) {
+    .footer-top {
+      flex-direction: row;
+      justify-content: space-between;
+      row-gap: 60px;
+      column-gap: 30px;
+    }
+
+    .footer-column--text {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 1040px) {
+    .footer-column--text {
+      width: auto;
+    }
+    .footer-column--text,
+    .footer-column--news {
+      max-width: 320px;
+    }
+  }
+
+  .footer li {
+    text-decoration: none;
+    list-style: none;
+  }
+
+  .footer-column h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .footer-column p,
+  .footer-column a {
+    color: #666;
+  }
+
+  .footer-column li + li {
+    margin-top: 10px;
+  }
+
+  .footer-column a {
+    text-decoration: none;
+    transition: 0.2s color;
+  }
+
+  .footer-column a:hover {
+    color: #111;
+  }
+
+  .footer-column.footer-column--news form {
+    margin-top: 20px;
+  }
+
+  .footer-column.footer-column--news input,
+  .footer-column.footer-column--news button {
+    appearance: none;
+    outline: none;
+  }
+
+  .footer-column.footer-column--news form input {
+    display: block;
+    width: 100%;
+    border: 1px solid #ddd;
+    line-height: 50px;
+    padding: 0 16px;
+  }
+
+  .footer-column.footer-column--news button {
+    display: inline-block;
+    background: #111;
+    color: #fff;
+    border: 1px solid #111;
+    margin-top: 14px;
+    transition: 0.2s color background-color, 0.2 border-color;
+  }
+
+  .footer-column.footer-column--news button:hover {
+    background-color: #323232;
+    border-color: #323232;
+    cursor: pointer;
+  }
+
+  .footer-bottom {
+    margin-top: 60px;
+  }
+
+  .footer-copyrigth {
+    text-align: center;
+    color: #666;
+  }
+  ,
+  .footer-cards {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "footer",
+  "class": "footer",
+  "tag": "footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "copyrigth",
+      "label": "copyrigth text"
+    }
+  ],
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "name": "Newsletter",
+      "type": "newsletter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "heading text"
+        },
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Body text"
+        }
+      ]
+    },
+    {
+      "name": "Text",
+      "type": "text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "heading text"
+        },
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Body text"
+        }
+      ]
+    },
+    {
+      "name": "Navigacion Column",
+      "type": "navigation",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "linklist",
+          "label": "Menu de navegacion"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
