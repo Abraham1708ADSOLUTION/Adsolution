@@ -44,7 +44,9 @@
       render 'adastra' with 'base.css'
       render 'adastra' with 'index.js'
     %}
-  </head>
+  
+	{{ shop.metafields.loox["global_html_head"] }}
+</head>
   <body>
     {% section 'announment-bar' %}
     {% section 'header-test' %}
@@ -83,5 +85,7 @@
         product_recommendations_url: '{{ routes.product_recommendations_url }}'
       }
     </script>
-  </body>
+  
+	{{ shop.metafields.loox["global_html_body"] }}
+</body>
 </html>
